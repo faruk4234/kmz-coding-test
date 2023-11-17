@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { useRoute } from '@react-navigation/native'
+import { Image, StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import Cart from './Cart'
 import Home from './Home'
+import { AppContext } from '../../../App'
 import colors from '../../const/colors'
 import queries, { type categoriesInterface } from '../../const/queries'
 import CategoryProvider from '../../hook/CategoryProvider'
@@ -19,17 +21,34 @@ const BottomStack = () => {
   return (
     <>
       <Tab.Navigator screenOptions={{
+        tabBarActiveTintColor: colors.lightBlack,
+        tabBarInactiveTintColor: colors.white,
+        tabBarLabelStyle: { fontSize: 12 },
         tabBarStyle: {
           backgroundColor: colors.primary
         }
       }} >
         <Tab.Screen options={{
+          tabBarIcon: ({ color }) => (
+            <Image
+              style={{ height: 20, width: 20, tintColor: color }}
+              source={require('../../assets/home.png')}
+
+            />
+          ),
           headerShown: false,
           headerStyle: {
             backgroundColor: colors.primary
           }
         }} name="Home" component={Home} />
         <Tab.Screen options={{
+          tabBarIcon: ({ color }) => (
+            <Image
+              style={{ height: 20, width: 20, tintColor: color }}
+              source={require('../../assets/cart.png')}
+
+            />
+          ),
           headerShown: false,
           headerStyle: {
             backgroundColor: colors.primary
@@ -47,6 +66,8 @@ const DrawerMenu = () => {
     setData(categoryData)
   }
 
+  const { setToken } = useContext(AppContext)
+
   useEffect(() => {
     void getCategories()
   }, [])
@@ -57,10 +78,30 @@ const DrawerMenu = () => {
       <Drawer.Navigator
         drawerContent={(props) => <DrawerContent {...props} data={data} />}
       >
-        <Drawer.Screen name="Bottom" component={BottomStack}/>
+        <Drawer.Screen options={{
+          title: 'Ömer Faruk ÇETINER',
+          headerRight: () => (
+            <TouchableOpacity onPress={() => { setToken(null) }}>
+              <Image
+                style={styles.exit}
+                source={require('../../assets/exit.png')}
+              />
+            </TouchableOpacity>
+          )
+        }} name="Bottom"
+        component={BottomStack}/>
       </Drawer.Navigator>
     </CategoryProvider.Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  exit: {
+    height: 20,
+    width: 20,
+    marginRight: 10,
+    tintColor: colors.primary
+  }
+})
 
 export default DrawerMenu

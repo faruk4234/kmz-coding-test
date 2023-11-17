@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react'
 
 import {
+  Alert,
   SafeAreaView, StyleSheet, Text, View
 } from 'react-native'
 
@@ -19,9 +20,14 @@ const LoginScreen = () => {
   const { setToken } = useContext(AppContext)
 
   const login = async () => {
-    const data = await queries.login({ username, password })
-    setToken(data.data.refreshToken)
-    await Storage.setItem('accessToken', data.data.token)
+    try {
+      const data = await queries.login({ username, password })
+      setToken(data?.data?.token)
+      await Storage.setItem('accessToken', data?.data?.token)
+    } catch (e) {
+      console.error(e)
+      Alert.alert('hata')
+    }
   }
 
   return (

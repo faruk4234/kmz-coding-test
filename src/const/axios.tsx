@@ -12,7 +12,7 @@ instance.interceptors.request.use(async (request) => {
   const accessToken: string = await Storage.getItem('accessToken')
   console.log(accessToken)
 
-  if (accessToken.length > 0) {
+  if (accessToken !== null) {
     request.headers.authorization = `Bearer ${accessToken}`
   }
 
