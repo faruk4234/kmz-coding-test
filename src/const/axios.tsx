@@ -10,7 +10,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use(async (request) => {
   const accessToken: string = await Storage.getItem('accessToken')
-  console.log(accessToken)
 
   if (accessToken !== null) {
     request.headers.authorization = `Bearer ${accessToken}`

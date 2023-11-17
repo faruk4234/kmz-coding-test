@@ -67,7 +67,6 @@ const AppProvider = () => {
 
   useEffect(() => {
     if (carts[1]) {
-      console.log('sa')
       void Storage.setItem('cart', carts)
     }
   }, [ carts, setCartItems ])
