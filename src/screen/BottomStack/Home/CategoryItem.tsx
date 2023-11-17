@@ -17,8 +17,10 @@ const CategoryItem: React.FC<categoryItemInterface> = ({ item }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => { setSelectedParentId(item.id) }} style={[ styles.container, { backgroundColor: selectedParentId === item.id ? colors.primary : colors.white }]}>
-      <Text style={{ marginHorizontal: 5, color: selectedParentId === item.id ? colors.white : colors.lightBlack }}>{item.categoryName}</Text>
+      onPress={() => { setSelectedParentId(item.id) }}
+      style={[ styles.container, { backgroundColor: selectedParentId === item.id ? colors.primary : colors.white }]}>
+      <Text
+        style={{ marginHorizontal: 5, color: selectedParentId === item.id ? colors.white : colors.lightBlack }}>{item.categoryName}</Text>
     </TouchableOpacity>
   )
 }
@@ -32,7 +34,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 2,
+    backgroundColor: colors.white,
+
     borderRadius: 20
+
   }
 })
 

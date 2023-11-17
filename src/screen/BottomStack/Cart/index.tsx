@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useContext, useMemo } from 'react'
 
 import {
@@ -26,7 +27,7 @@ const Cart = () => {
 
   return (
     <>
-      <View>
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ height: '95%' }}>
           <FlatList
             contentContainerStyle={{ }}
@@ -46,18 +47,22 @@ const Cart = () => {
                   <View style={styles.header}>
                     <View style={styles.row}>
                       <Text style={{ maxWidth: width * 0.4 }}>{item?.stockName}</Text>
-                      <Text onPress={() => { onPlusOrDecreseButtonClick(item, -item.count) }} >sil</Text>
+                      <TouchableOpacity onPress={() => { onPlusOrDecreseButtonClick(item, -item.count) }}>
+                        <Image style={styles.thrash} source={require('../../../assets/thrash.png')} />
+                      </TouchableOpacity>
                     </View>
                     <Text style={{ color: colors.lightBlack, fontSize: 13 }}> { formatCurrency(item?.price * item?.count)}</Text>
 
                     <View style={styles.countAndPriceContainer}>
-                      <TouchableOpacity onPress={() => { onPlusOrDecreseButtonClick(item, -1) }} style={styles.countSwitch}>
+                      <TouchableOpacity
+                        onPress={() => { onPlusOrDecreseButtonClick(item, -1) }} style={styles.countSwitch}>
                         <Text style={styles.icon}>-</Text>
                       </TouchableOpacity>
 
                       <Text style={styles.count}>{item?.count}</Text>
 
-                      <TouchableOpacity onPress={() => { onPlusOrDecreseButtonClick(item, 1) }} style={styles.countSwitch}>
+                      <TouchableOpacity
+                        onPress={() => { onPlusOrDecreseButtonClick(item, 1) }} style={styles.countSwitch}>
                         <Text style={styles.icon}>+</Text>
                       </TouchableOpacity>
                     </View>
@@ -83,6 +88,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 10,
     borderColor: colors.primary
+
   },
   header: {
     flex: 1,
@@ -104,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  icon: { color: colors.white, fontSize: 25 },
+  icon: { color: colors.white, fontSize: 25, textAlign: 'center' },
   count: { fontSize: 20, color: colors.primary, fontWeight: 'bold' },
   empty: {
     fontSize: 30, marginTop: 50, color: colors.primary, textAlign: 'center'
@@ -113,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.primary,
     marginLeft: 20
-  }
+  },
+  thrash: { height: 17, width: 15 }
 })
 export default Cart

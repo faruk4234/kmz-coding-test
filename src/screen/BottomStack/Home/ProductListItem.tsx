@@ -3,12 +3,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import {
-  View, TouchableOpacity, Text, ImageBackground, useWindowDimensions, StyleSheet, Alert
+  View, TouchableOpacity, Text, ImageBackground, useWindowDimensions, StyleSheet
 } from 'react-native'
 
 import { AppContext } from '../../../../App'
 import colors from '../../../const/colors'
-import queries from '../../../const/queries'
 import formatCurrency from '../../../hook/FormatCurrency'
 
 export interface productListItemInterface {
@@ -48,9 +47,7 @@ const ProductListItem: React.FC<productListItemInterface> = ({ item }) => {
         >
           <Text style={styles.plusText}>-</Text>
         </TouchableOpacity>
-        <Text style={{
-          marginTop: 5, color: colors.primary, fontSize: 20, opacity: amount
-        }}>{amount}</Text>
+        <Text style={[ styles.ammountText, { opacity: amount }]}>{amount}</Text>
         <TouchableOpacity onPress={() => { onPlusOrDecreseButtonClick(item, +1) }} style={styles.countContainer}>
           <Text style={styles.plusText}>+</Text>
         </TouchableOpacity>
@@ -59,9 +56,7 @@ const ProductListItem: React.FC<productListItemInterface> = ({ item }) => {
       <ImageBackground style={{ height: width * 0.28, width: width * 0.28, margin: 3 }} source={{ uri: item.productImages?.[0].imagePath }}>
 
       </ImageBackground>
-      <Text style={{
-        maxWidth: width * 0.25, fontSize: 10, margin: 5, marginVertical: 10, height: 30
-      }}>{item.stockName}</Text>
+      <Text numberOfLines={2} style={[ styles.name, { maxWidth: width * 0.25 }]}>{item.stockName}</Text>
 
       <View style={styles.priceContainer}>
 
@@ -76,12 +71,34 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: colors.primary
+    borderColor: colors.primary,
+    backgroundColor: colors.white,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5
+
+  },
+  name: {
+    fontSize: 10,
+    margin: 5,
+    marginVertical: 10,
+    height: 30
   },
   childContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 5
+  },
+  ammountText: {
+    marginTop: 5,
+    color: colors.primary,
+    fontSize: 20
   },
   countContainer: {
     backgroundColor: colors.primary,
@@ -93,6 +110,7 @@ const styles = StyleSheet.create({
   },
   plusText: {
     color: colors.white,
+    textAlign: 'center',
     fontSize: 20
   },
   priceContainer: {
