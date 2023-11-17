@@ -2,7 +2,6 @@
 import React, { useContext, useMemo } from 'react'
 
 import {
-  Alert,
   FlatList, Image, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions
 } from 'react-native'
 

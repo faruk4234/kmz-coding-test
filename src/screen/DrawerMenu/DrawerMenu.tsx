@@ -2,17 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import {
-  FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View
+  FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity
 } from 'react-native'
 
 import { AppContext } from '../../../App'
 import colors from '../../const/colors'
+import { type categoryItemInterface } from '../BottomStack/Home/CategoryItem'
 
-const DrawerContent = ({ data }) => {
+const DrawerContent = ({ data }: categoryItemInterface | any) => {
   const { selectedParentId, setSelectedParentId } = useContext(AppContext)
 
   const navigation = useNavigation()
